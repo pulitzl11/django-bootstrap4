@@ -152,6 +152,7 @@ class FormRenderer(BaseRenderer):
         self.error_css_class = kwargs.get('error_css_class', None)
         self.required_css_class = kwargs.get('required_css_class', None)
         self.bound_css_class = kwargs.get('bound_css_class', None)
+        self.render_alert = kwargs.get('render_alert', False)
 
     def render_fields(self):
         rendered_fields = []
@@ -205,7 +206,10 @@ class FormRenderer(BaseRenderer):
         return ''
 
     def _render(self):
-        return self.render_errors() + self.render_fields()
+        if self.render_alert:
+            return self.render_errors() + self.render_fields()
+        else:
+            return self.render_fields()
 
 
 class FieldRenderer(BaseRenderer):
